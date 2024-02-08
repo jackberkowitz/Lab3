@@ -23,8 +23,11 @@ int main(void)
 	EIMSK = 0b00000011; //Enable INTO & INT1
 	sei(); //Enable Global Interrupt
 	
+	
 	while(1)
 	{
+		int flag = 0;
+		
 		PORTC = PORTC & 0b11111110; //Turn on LED, PCO
 		wait(200);
 		PORTC = PORTC | 0b00000001; //Turn off LED, PC0
@@ -61,17 +64,18 @@ int main(void)
 //ISR, INT0
 ISR(INT0_vect)
 {
-	//if button is pushed for 1st time, enter a new while loop (so while loop in here)
 	int flag = 0;
+	wait(50); //switch debounce
 	
-	if(flag ==0)
+	if(flag == 0)
 	{
-		PORTB = PORTB & 0b11111101; //Turn on LED 6, PB1
-		wait(200);
-		
 		if(PINC & 0b00000100) //seeing if is LED 2 on
 		{
+			PORTB = PORTB & 0b11111101; //Turn on LED 6, PB1
+			wait(200);
+			
 			flag++;
+			
 			while(1)
 			{
 				PORTC = PORTC & 0b11110111; //Turn on LED, PC3
@@ -88,21 +92,18 @@ ISR(INT0_vect)
 				wait(200);
 				PORTC = PORTC | 0b00100000; //Turn off LED, PC5
 				wait(200);
-			}
-			
+			}	
 		}
 	}		
-	
-	while()
-	//manipulate flags to get buttons to work and not work at different times
 }
 
 //ISR, INT1
 ISR(INT1_vect)
 {
 	int flag2 = 0;
+	wait(50); //switch debounce
 	
-	if(flag2 == 0) //is this the 1st time switch has been pressed
+	if(flag2 == 0)
 	{
 		
 		if(PINB & 0b00000010) //seeing if LED 6 is on
@@ -121,15 +122,12 @@ ISR(INT1_vect)
 				PORTC = PORTC | 0b00001000; //Turn off LED, PC3
 				PORTC = PORTC | 0b00010000; //Turn off LED, PC4
 				PORTC = PORTC | 0b00100000; //Turn off LED, PC5
-				PORTB = PORTB \ 0b00000010; //Turn off LED 6, PB1
+				PORTB = PORTB | 0b00000010; //Turn off LED 6, PB1
 				
-				flag = 0;
 				flag2 = 0;
-			
 			}
 		}
 	}
-
 }
 
 void wait(volatile int multiple)

@@ -30,67 +30,61 @@ int main(void)
 		PORTC = PORTC & 0b11111110; //Turn on LED, PCO
 		wait(200);
 		PORTC = PORTC | 0b00000001; //Turn off LED, PC0
-		wait(200);
 		
 		PORTC = PORTC & 0b11111101; //Turn on LED, PC1
 		wait(200);
 		PORTC = PORTC | 0b00000010; //Turn off LED, PC1
-		wait(200);
 		
 		PORTC = PORTC & 0b11111011; //Turn on LED, PC2
 		wait(200);
 		PORTC = PORTC | 0b00000100; //Turn off LED, PC2
-		wait(200);
 		
 		PORTC = PORTC & 0b11110111; //Turn on LED, PC3
 		wait(200);
 		PORTC = PORTC | 0b00001000; //Turn off LED, PC3
-		wait(200);
 		
 		PORTC = PORTC & 0b11101111; //Turn on LED, PC4
 		wait(200);
 		PORTC = PORTC | 0b00010000; //Turn off LED, PC4
-		wait(200);
 		
 		PORTC = PORTC & 0b11011111; //Turn on LED, PC5
 		wait(200);
 		PORTC = PORTC | 0b00100000; //Turn off LED, PC5
-		wait(200);
 		
 	}
 }	
 		
 //ISR, INT0
-ISR(INT0_vect)
+ISR(INT0_vect) //entered if Switch 0 is turned on
 {
 	int flag = 0;
 	wait(50); //switch debounce
 	
 	if(flag == 0)
 	{
-		if(PINC & 0b00000100) //seeing if is LED 2 on
+		if(PINC & 0b11111011) //seeing if is LED 2 on
 		{
 			PORTB = PORTB & 0b11111101; //Turn on LED 6, PB1
 			wait(200);
 			
 			flag++;
 			
+			PORTC = PORTC | 0b00000100; //Turn off LED, PC2
+			wait(200);
+			
 			while(1)
 			{
 				PORTC = PORTC & 0b11110111; //Turn on LED, PC3
 				wait(200);
 				PORTC = PORTC | 0b00001000; //Turn off LED, PC3
-				wait(200);
 		
 				PORTC = PORTC & 0b11101111; //Turn on LED, PC4
 				wait(200);
 				PORTC = PORTC | 0b00010000; //Turn off LED, PC4
-				wait(200);
 		
 				PORTC = PORTC & 0b11011111; //Turn on LED, PC5
 				wait(200);
 				PORTC = PORTC | 0b00100000; //Turn off LED, PC5
-				wait(200);
 			}	
 		}
 	}
@@ -99,14 +93,14 @@ ISR(INT0_vect)
 }
 
 //ISR, INT1
-ISR(INT1_vect)
+ISR(INT1_vect) //entered if Switch 1 is turned on
 {
 	wait(50); //switch debounce
 	
-	if(PINB & 0b00000010) //seeing if LED 6 is on
+	if(PINB & 0b11111101) //seeing if LED 6 is on
 	{
 			
-		if(PINC & 0b00100000) //seeing if LED 5 is on
+		if(PINC & 0b11011111) //seeing if LED 5 is on
 		{
 				
 			PORTB = PORTB & 0b11111011; //Turn on LED 7, PB2

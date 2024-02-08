@@ -8,6 +8,11 @@
 
 void wait(volatile int);
 
+//Global Variables
+int flag = 0;
+int flag2 = 0;
+int counter = 0;
+int counter2 = 0;
 
 int main(void)
 {
@@ -23,8 +28,6 @@ int main(void)
 	EIMSK = 0b00000011; //Enable INTO & INT1
 	sei(); //Enable Global Interrupt
 	
-	int flag = 0;
-	int flag2 = 0;
 	
 	while(1)
 	{
@@ -68,7 +71,6 @@ int main(void)
 //ISR, INT0
 ISR(INT0_vect) //entered if Switch 0 is turned on
 {
-	int counter = 0;
 	wait(50); //switch debounce
 	
 	if(counter == 0) //seeing if switch is being pressed for first time
@@ -90,7 +92,6 @@ ISR(INT0_vect) //entered if Switch 0 is turned on
 //ISR, INT1
 ISR(INT1_vect) //entered if Switch 1 is turned on
 {
-	counter2 = 0;
 	wait(50); //switch debounce
 	
 	if(flag2 == 1 && counter2 == 0) //seeing if LED 6 is on, 1st time switch being pressed
@@ -106,6 +107,8 @@ ISR(INT1_vect) //entered if Switch 1 is turned on
 			PORTC = PORTC | 0b00111111; //Turn off LEDs 1-5, PC0-PC5
 			
 			flag = 0;
+			flag2 = 0;
+			counter = 0;
 			counter2 = 0;
 				
 		}

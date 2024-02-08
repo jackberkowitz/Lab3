@@ -100,32 +100,25 @@ ISR(INT0_vect)
 //ISR, INT1
 ISR(INT1_vect)
 {
-	int flag2 = 0;
 	wait(50); //switch debounce
 	
-	if(flag2 == 0)
+	if(PINB & 0b00000010) //seeing if LED 6 is on
 	{
-		
-		if(PINB & 0b00000010) //seeing if LED 6 is on
-		{
 			
-			if(PINC & 0b00100000) //seeing if LED 5 is on
-			{
-				flag2++;
+		if(PINC & 0b00100000) //seeing if LED 5 is on
+		{
 				
-				PORTB = PORTB & 0b11111011; //Turn on LED 7, PB2
-				wait(3000);
-				PORTB = PORTB | 0b00000100; //Turn off LED 7, PB2
-				PORTC = PORTC | 0b00000001; //Turn off LED, PC0
-				PORTC = PORTC | 0b00000010; //Turn off LED, PC1
-				PORTC = PORTC | 0b00000100; //Turn off LED, PC2
-				PORTC = PORTC | 0b00001000; //Turn off LED, PC3
-				PORTC = PORTC | 0b00010000; //Turn off LED, PC4
-				PORTC = PORTC | 0b00100000; //Turn off LED, PC5
-				PORTB = PORTB | 0b00000010; //Turn off LED 6, PB1
+			PORTB = PORTB & 0b11111011; //Turn on LED 7, PB2
+			wait(3000);
+			PORTB = PORTB | 0b00000100; //Turn off LED 7, PB2
+			PORTC = PORTC | 0b00000001; //Turn off LED, PC0
+			PORTC = PORTC | 0b00000010; //Turn off LED, PC1
+			PORTC = PORTC | 0b00000100; //Turn off LED, PC2
+			PORTC = PORTC | 0b00001000; //Turn off LED, PC3
+			PORTC = PORTC | 0b00010000; //Turn off LED, PC4
+			PORTC = PORTC | 0b00100000; //Turn off LED, PC5
+			PORTB = PORTB | 0b00000010; //Turn off LED 6, PB1
 				
-				flag2 = 0;
-			}
 		}
 	}
 }

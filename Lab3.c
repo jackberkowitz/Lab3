@@ -26,7 +26,6 @@ int main(void)
 	
 	while(1)
 	{
-		int flag = 0;
 		
 		PORTC = PORTC & 0b11111110; //Turn on LED, PCO
 		wait(200);
@@ -94,7 +93,9 @@ ISR(INT0_vect)
 				wait(200);
 			}	
 		}
-	}		
+	}
+	
+	EIFR = 0b00000001;	//clear the INT0 flag	
 }
 
 //ISR, INT1
@@ -121,6 +122,8 @@ ISR(INT1_vect)
 				
 		}
 	}
+	
+	EIFR = 0b00000010;	//Clear the INT1 flag
 }
 
 void wait(volatile int multiple)

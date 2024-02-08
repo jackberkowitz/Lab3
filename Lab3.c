@@ -37,33 +37,27 @@ int main(void)
 			PORTC = PORTC & 0b11111110; //Turn on LED 0, PCO
 			wait(200);
 			PORTC = PORTC | 0b00000001; //Turn off LED 0, PC0
-			wait(200);
 		
 			PORTC = PORTC & 0b11111101; //Turn on LED 1, PC1
 			wait(200);
 			PORTC = PORTC | 0b00000010; //Turn off LED 1, PC1
-			wait(200);
 		
 			PORTC = PORTC & 0b11111011; //Turn on LED 2, PC2
 			wait(200);
 			PORTC = PORTC | 0b00000100; //Turn off LED 2, PC2
-			wait(200);
 		}	
 		
 		PORTC = PORTC & 0b11110111; //Turn on LED 3, PC3
 		wait(200);
 		PORTC = PORTC | 0b00001000; //Turn off LED 3, PC3
-		wait(200);
 		
 		PORTC = PORTC & 0b11101111; //Turn on LED 4, PC4
 		wait(200);
 		PORTC = PORTC | 0b00010000; //Turn off LED 4, PC4
-		wait(200);
 		
 		PORTC = PORTC & 0b11011111; //Turn on LED 5, PC5
 		wait(200);
 		PORTC = PORTC | 0b00100000; //Turn off LED 5, PC5
-		wait(200);
 		
 	}
 }	
